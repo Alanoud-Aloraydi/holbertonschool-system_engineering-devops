@@ -1,7 +1,8 @@
 ﻿![Scale up infrastructure diagram](IMAGE_LINK_HERE)
 
 **Added elements and why:**
+- 1 added server: a second web server (Nginx). It serves traffic together with the first one, so the web tier is no longer a single server.
 - Load balancers (HAProxy) configured as a cluster: a second load balancer takes over if the first fails, so the load balancer is no longer a SPOF.
-- Web server, application server and database each on their own server: each component can be scaled, secured and maintained on its own.
+- Components split onto their own servers: the web server, the application server and the database each run on their own server, so each can be scaled, secured and maintained on its own.
 
-**Assumption:** the component split uses 3 separate servers, one for the web server, one for the application server and one for the database, plus the load balancer cluster.
+**Result:** load balancer cluster, 2 web servers, 1 application server, 1 database server.
