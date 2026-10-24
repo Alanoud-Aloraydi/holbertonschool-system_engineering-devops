@@ -1,0 +1,19 @@
+﻿![Distributed web infrastructure diagram](IMAGE_LINK_HERE)
+
+**Added elements and why:**
+- Load balancer (HAProxy): spreads traffic across the servers, so one server does not receive all the requests.
+- Second server: gives redundancy and capacity. If one server fails, the other still serves the website.
+- Each server has its own Nginx, application server, application files and MySQL database: each server can serve requests on its own.
+
+**Load balancer algorithm:** HAProxy uses round robin by default. It sends each new request to the next server in the list.
+
+**Active-Active or Active-Passive:** this setup is Active-Active for the web servers, because both servers receive traffic at the same time. Active-Passive means one server takes traffic and the other waits as a standby until the first fails.
+
+**Primary-Replica (Master-Slave) cluster:** the primary database accepts writes. The replica copies the data from the primary and can serve reads. Replication is usually asynchronous.
+
+**Primary vs Replica for the application:** the application writes to the primary. It can read from the replica. The replica is read-only.
+
+**Issues:**
+- SPOF: the load balancer is a single server. If it fails, the site is unreachable. Each database has a single primary for writes.
+- Security: there is no firewall and no HTTPS, so traffic is exposed.
+- Monitoring: there is no monitoring, so failures are found late.

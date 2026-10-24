@@ -1,0 +1,7 @@
+﻿![Scale up infrastructure diagram](IMAGE_LINK_HERE)
+
+**Added elements and why:**
+- Load balancers (HAProxy) configured as a cluster: a second load balancer takes over if the first fails, so the load balancer is no longer a SPOF.
+- Web server, application server and database each on their own server: each component can be scaled, secured and maintained on its own.
+
+**Assumption:** the component split uses 3 separate servers, one for the web server, one for the application server and one for the database, plus the load balancer cluster.

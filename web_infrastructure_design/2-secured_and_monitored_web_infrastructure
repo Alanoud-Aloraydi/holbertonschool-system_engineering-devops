@@ -1,0 +1,21 @@
+﻿![Secured and monitored web infrastructure diagram](IMAGE_LINK_HERE)
+
+**Added elements and why:**
+- 3 firewalls: one on the edge, one between the load balancer and the web servers, and one between the application and the database. Each one limits traffic to the ports that are needed.
+- SSL certificate for www.foobar.com on the load balancer: serves the website over HTTPS.
+- 3 monitoring clients (Sumologic collector): collect logs and metrics from the load balancer and the servers.
+
+**Firewalls:** a firewall filters network traffic by rules, for example allowing only ports 80, 443 and 22.
+
+**Why HTTPS:** HTTPS encrypts the traffic between the user and the server, so it cannot be read or changed in transit. It also proves the server identity with the certificate.
+
+**Monitoring:** monitoring shows the health of the servers and the website, and alerts when something fails.
+
+**Data collection:** the monitoring client reads logs and metrics on each machine and sends them to the monitoring service.
+
+**QPS (queries per second):** to monitor web server QPS, count the requests in the Nginx access logs per second and graph them in the monitoring service.
+
+**Issues:**
+- SSL terminated at the load balancer: traffic between the load balancer and the servers is decrypted at the load balancer, so it is not encrypted inside the network.
+- One MySQL server accepts writes: if it fails, no data can be written, and the database is a SPOF.
+- Servers with all the same components: a failure or a load spike affects the whole stack at once, and each server must be scaled as a whole.

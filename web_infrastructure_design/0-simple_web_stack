@@ -1,0 +1,22 @@
+﻿![Simple web stack diagram](IMAGE_LINK_HERE)
+
+**User:** the user types www.foobar.com in the browser. The browser asks DNS for the IP address of the name.
+
+**Domain name:** `foobar.com` is a human-readable name. DNS maps it to the IP address of the server.
+
+**DNS record type of www:** `www` is an A record. It maps `www.foobar.com` to the IPv4 address `8.8.8.8`.
+
+**Server:** a computer that runs software and answers requests from clients.
+
+**Web server (Nginx):** receives HTTP requests from the user, serves static files and forwards dynamic requests to the application server.
+
+**Application server:** runs the application code, which contains the business logic and builds the response.
+
+**Database (MySQL):** stores the application data. The application server reads and writes it.
+
+**Communication with the user:** the browser and the server talk over HTTP, which runs on TCP/IP. HTTPS is the secure form of HTTP.
+
+**Issues:**
+- SPOF: the single server is a single point of failure. If it stops, the website is down.
+- Downtime: deploying new code requires restarting the web server and the application, so the site is unavailable during maintenance.
+- Scaling: one server cannot handle a large amount of incoming traffic.
